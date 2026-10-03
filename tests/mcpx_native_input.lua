@@ -2,11 +2,11 @@
 -- No colony or physical controller is available: only controller state is
 -- simulated, inside this mod's environment. UI, cursor,
 -- terminal dispatch, classes, threads, style changes and messages are native.
-rawset(_G, "MCCNativeInputReport", { status = "running", checks = {} })
+rawset(_G, "MCPXNativeInputReport", { status = "running", checks = {} })
 CreateRealTimeThread(function()
-    local report = MCCNativeInputReport
-    local env = Mods.MouseCursorConsoles.env
-    local m = env.MCC
+    local report = MCPXNativeInputReport
+    local env = Mods.MouseCursorPs5Xbox.env
+    local m = env.MCPX
     local session_style = GetUIStyle()
     local original_style, original_left, original_right
     local old_input = rawget(env, "XInput")

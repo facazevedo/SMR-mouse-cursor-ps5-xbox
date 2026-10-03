@@ -1,5 +1,44 @@
 # Validation record
 
+## Version 14: name and prefix (2026-10-03)
+
+Renamed the mod to **Mouse Cursor PS5 Xbox**, its mod ID to
+`MouseCursorPs5Xbox`, the entry file to `Code/MouseCursorPs5Xbox.lua`, supporting
+files/assets to `mcpx_`, and runtime classes, UI IDs and test-report globals to
+`MCPX`. Metadata and editor manifests retain the same eight-module load order.
+The GitHub repository is `facazevedo/mouse-cursor-ps5-xbox`.
+
+- `luac -p` passed for all **17 payload and test Lua files**. The existing host
+  suites passed **84 behavior + 56 settings/motion checks**, covering manifest
+  ordering, input, cursor movement, exact-boolean logs and vanilla restoration.
+  The PowerShell deployment script and Python asset tool also passed parsing.
+- All 15 code/test files were compared with their previous committed contents:
+  only the requested name and prefix substitutions changed. The SVG and PNG
+  cursor files were renamed with byte-for-byte identical content. The test
+  preview, instruction files, ignore rules and preview documentation are unchanged.
+- The existing local installation matched all 12 source-file hashes before
+  migration. Its folder and affected files were renamed without deletion; all
+  **12 updated payload files** were deployed and SHA-256 verified under
+  `%APPDATA%/Surviving Mars Relaunched/Mods/MouseCursorPs5Xbox`.
+- `DEBUG_LOGS=false` and `DEBUG_INPUT=false` remain explicit booleans. No new
+  runtime log operations were added; the log prefix now uses the new mod name.
+- Read-only `CommonLua/Modding/Mod.lua` in the installed ModTools sources confirms
+  that mounted content paths, enabled-mod selections and persistent preferences
+  are keyed by mod ID. This is intentionally a new identity: enable it in-game
+  and reconfigure preferences; existing saves may still refer to the prior ID.
+- Reviewed `MarsDebug.exe-20261003-19.08.09-6aad2de6.log`: it loaded the preceding
+  v13 identity and records unrelated whale-import `svn info` process errors.
+  It is not runtime evidence for v14. Logs were retained; game, generated,
+  third-party and harness source files were not edited.
+- No v14 native-engine, console-hardware, save/reload or store-upload test was
+  run. Restart the game, enable the new identity, open Options > Controls >
+  Mouse Cursor PS5 Xbox, configure/apply preferences, hold/release LS for boost,
+  toggle twice, and check disable/re-enable plus save/reload restoration. Inspect
+  the fresh game log for load failures or Lua errors.
+
+Names and source paths in older sections below use the current naming. Their
+test counts, dates and runtime claims apply only to the stated historical versions.
+
 ## Version 11: native size and full square travel
 
 Restored standard option sizes, removed permanent preview text, centered the
@@ -27,7 +66,7 @@ see [settings validation](SETTINGS.md) for runtime evidence and manual checks.
 
 ## Version 8: Controls entry alignment
 
-The Mouse Cursor Consoles entry now aligns with vanilla Controls labels on the
+The Mouse Cursor PS5 Xbox entry now aligns with vanilla Controls labels on the
 first visit and during hover/focus. A fresh debug-game run passed all 24 native
 entry checks; see [settings validation](SETTINGS.md) for the screenshot, startup
 crash evidence and manual console check.
@@ -52,7 +91,7 @@ page keeps all 15 properties and existing storage; see [settings validation](SET
 
 ## Version 4: Controls menu entry
 
-Options > Controls now contains Mouse Cursor Consoles as its first row. See
+Options > Controls now contains Mouse Cursor PS5 Xbox as its first row. See
 [settings validation](SETTINGS.md) for the menu-visibility fix, 136 host checks,
 39 native menu/settings checks, deployment and remaining manual checks.
 
@@ -122,10 +161,10 @@ The starting folder contained only `AGENTS.md` and `CLAUDE.md`; it had no mod co
 or Git repository. Both instruction files were read and left unchanged. A local
 Git repository was initialized for the required initial version commit.
 
-Display name: Mouse Cursor Consoles. Main file: `Code/MouseCursorConsoles.lua`.
-Prefix: `mcc_`. Canonical version: `metadata.lua` (`version = 1`). Payload source:
+Display name: Mouse Cursor PS5 Xbox. Main file: `Code/MouseCursorPs5Xbox.lua`.
+Prefix: `mcpx_`. Canonical version: `metadata.lua` (`version = 1`). Payload source:
 the eight explicitly selected files at project root and `Code/`. Local target:
-`%APPDATA%/Surviving Mars Relaunched/Mods/MouseCursorConsoles`. Logs:
+`%APPDATA%/Surviving Mars Relaunched/Mods/MouseCursorPs5Xbox`. Logs:
 `%APPDATA%/Surviving Mars Relaunched/logs`. No vendored or third-party code is
 part of the payload. Game installation and neighboring projects are reference
 material, not editable mod source.
@@ -186,7 +225,7 @@ appearance must still be checked on a rendered colony and console hardware.
 
 Read the previous `MarsDebug.exe-20260927-07.53.59-6aad2de6.log`: it contains existing
 shader-cache errors and ends with an orderly shutdown. There was no pre-existing
-Mouse Cursor Consoles code to diagnose.
+Mouse Cursor PS5 Xbox code to diagnose.
 
 Read the fresh `MarsDebug.exe-20260927-08.06.21-6aad2de6.log` and the harness launch
 log `daemon-20260927-120621.log`. Early versions of **test helpers**, not payload

@@ -1,5 +1,5 @@
 -- Owns validated preferences and persistence; no UI or game-save state.
-local M = MCC
+local M = MCPX
 M.SettingKeys = {
     "CURSOR_SPEED", "CURSOR_FAST_SPEED", "CURSOR_SIZE", "STICK_DEADZONE",
     "RESPONSE_CURVE", "SMOOTHING_MS", "CURSOR_COLOR", "REMEMBER_POSITION",

@@ -1,4 +1,4 @@
-local M = MCC
+local M = MCPX
 
 function M.Log(scope, operation, data)
     if M.Config.DEBUG_LOGS ~= true then return end
@@ -7,7 +7,7 @@ function M.Log(scope, operation, data)
         fields[#fields + 1] = tostring(key) .. "=" .. tostring(value)
     end
     table.sort(fields)
-    print("[MouseCursorConsoles][" .. scope .. "] " .. operation .. " " .. table.concat(fields, " "))
+    print("[MouseCursorPs5Xbox][" .. scope .. "] " .. operation .. " " .. table.concat(fields, " "))
 end
 
 function M.InputLog(operation, data)

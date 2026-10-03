@@ -1,10 +1,10 @@
-local M = MCC
+local M = MCPX
 
 -- Software cursor patterned on CommonLua/X/MouseViaGamepad.lua. Movement is
 -- explicitly sourced from LeftThumb, independent of native gamepad mouse settings.
-DefineClass.MCCCursor = {
+DefineClass.MCPXCursor = {
     __parents = { "XWindow" },
-    Id = "idMCCCursor",
+    Id = "idMCPXCursor",
     IdNode = true,
     HandleMouse = false,
     Dock = "box",
@@ -19,7 +19,7 @@ function M.SetCursorArtwork(image, cursor)
     M.StyleCursor(image, M.Config)
 end
 
-function MCCCursor:Init()
+function MCPXCursor:Init()
     local image = XImage:new({
         Id = "idCursor", HAlign = "left", VAlign = "top",
         HandleMouse = false, Clip = false, UseClipBox = false,
@@ -32,7 +32,7 @@ function M.UpdateCursorVisibility()
     if not M.cursor then return end
     local visible = next(ShowMouseReasons) ~= nil
     for reason in pairs(ForceHideMouseReasons) do
-        if reason ~= "MouseCursorConsoles" and reason ~= "MouseDisconnected" then
+        if reason ~= "MouseCursorPs5Xbox" and reason ~= "MouseDisconnected" then
             visible = false
         end
     end
@@ -128,7 +128,7 @@ function M.RestoreMousePositionOverride()
     M.original_mouse_position, M.mouse_position_override = nil, nil
 end
 
-function MCCCursor:TrackLeftStick()
+function MCPXCursor:TrackLeftStick()
     local last_time = RealTime()
     while M.active and M.cursor == self do
         WaitNextFrame()
@@ -164,14 +164,14 @@ function M.CreateCursor()
         M.y = Clamp(MulDivRound(saved.y, height, saved.height), 0, (height - 1) * 1000)
     end
     M.motion = { x = M.x, y = M.y }
-    M.cursor = MCCCursor:new({}, terminal.desktop)
+    M.cursor = MCPXCursor:new({}, terminal.desktop)
     M.cursor:Open()
     M.ApplyMousePositionOverride()
-    ForceHideMouseCursor("MouseCursorConsoles")
-    ShowMouseCursor("MouseCursorConsoles")
+    ForceHideMouseCursor("MouseCursorPs5Xbox")
+    ShowMouseCursor("MouseCursorPs5Xbox")
     M.UpdateCursorVisibility()
     M.SetCursorPosition(point(MulDivRound(M.x, 1, 1000), MulDivRound(M.y, 1, 1000)))
-    M.cursor:CreateThread("MCCLeftStick", M.cursor.TrackLeftStick, M.cursor)
+    M.cursor:CreateThread("MCPXLeftStick", M.cursor.TrackLeftStick, M.cursor)
 end
 
 function M.DestroyCursor()
@@ -184,6 +184,6 @@ function M.DestroyCursor()
     M.cursor = nil
     if cursor and cursor.window_state ~= "destroying" then cursor:delete() end
     M.RestoreMousePositionOverride()
-    HideMouseCursor("MouseCursorConsoles")
-    UnforceHideMouseCursor("MouseCursorConsoles")
+    HideMouseCursor("MouseCursorPs5Xbox")
+    UnforceHideMouseCursor("MouseCursorPs5Xbox")
 end

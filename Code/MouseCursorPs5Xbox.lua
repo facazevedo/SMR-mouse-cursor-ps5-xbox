@@ -1,5 +1,5 @@
 -- Lifecycle wiring only. metadata.lua lists dependencies before this file.
-local M = MCC
+local M = MCPX
 
 OnMsg.ClassesBuilt = M.Install
 OnMsg.ModsReloaded = M.Install

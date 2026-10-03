@@ -1,4 +1,4 @@
-local M = MCC
+local M = MCPX
 
 local function unavailable(name)
     M.Log("Validation", "activation_refused", { reason = name })
@@ -26,7 +26,7 @@ function M.Validate()
             if type(object[method]) ~= "function" then return unavailable("Missing API: " .. name .. "." .. method) end
         end
     end
-    if not terminal.desktop or not rawget(_G, "MCCCursor") or not rawget(_G, "MCCInput") then
+    if not terminal.desktop or not rawget(_G, "MCPXCursor") or not rawget(_G, "MCPXInput") then
         return unavailable("UI classes or desktop are not ready")
     end
     for _, name in ipairs({ "ShowMouseReasons", "ForceHideMouseReasons", "ForceShowMouseReasons", "RolloverSuspendReasons" }) do
@@ -135,7 +135,7 @@ function M.Toggle(controller)
     local ok, reason = M.ApplyModBehavior(controller)
     if not ok then
         M.Log("Lifecycle", "toggle_refused", { reason = reason })
-        CreateMessageBox(terminal.desktop, Untranslated("Mouse Cursor Consoles"), Untranslated(reason))
+        CreateMessageBox(terminal.desktop, Untranslated("Mouse Cursor PS5 Xbox"), Untranslated(reason))
     end
     return ok, reason
 end
@@ -147,7 +147,7 @@ function M.Install()
     if M.input or M.Config.ENABLE_MOUSE_MODE ~= true then return end
     local ok = M.Validate()
     if not ok then return end
-    M.input = MCCInput:new()
+    M.input = MCPXInput:new()
     terminal.AddTarget(M.input)
     M.Log("Lifecycle", "input_registered", { version = CurrentModDef.version, enabled = M.Config.ENABLE_MOUSE_MODE, debug_input = M.Config.DEBUG_INPUT, toggle = M.Config.TOGGLE_BUTTON })
 end

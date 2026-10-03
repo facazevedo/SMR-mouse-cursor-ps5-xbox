@@ -1,11 +1,11 @@
 return {
-    PlaceObj('ModItemCode', { 'name', "mcc_config", 'CodeFileName', "Code/mcc_config.lua" }),
-    PlaceObj('ModItemCode', { 'name', "mcc_debug", 'CodeFileName', "Code/mcc_debug.lua" }),
-    PlaceObj('ModItemCode', { 'name', "mcc_settings", 'CodeFileName', "Code/mcc_settings.lua" }),
-    PlaceObj('ModItemCode', { 'name', "mcc_cursor", 'CodeFileName', "Code/mcc_cursor.lua" }),
-    PlaceObj('ModItemCode', { 'name', "mcc_input", 'CodeFileName', "Code/mcc_input.lua" }),
-    PlaceObj('ModItemCode', { 'name', "mcc_lifecycle", 'CodeFileName', "Code/mcc_lifecycle.lua" }),
-    PlaceObj('ModItemCode', { 'name', "mcc_settings_ui", 'CodeFileName', "Code/mcc_settings_ui.lua" }),
-    PlaceObj('ModItemCode', { 'name', "MouseCursorConsoles", 'CodeFileName', "Code/MouseCursorConsoles.lua" }),
+    PlaceObj('ModItemCode', { 'name', "mcpx_config", 'CodeFileName', "Code/mcpx_config.lua" }),
+    PlaceObj('ModItemCode', { 'name', "mcpx_debug", 'CodeFileName', "Code/mcpx_debug.lua" }),
+    PlaceObj('ModItemCode', { 'name', "mcpx_settings", 'CodeFileName', "Code/mcpx_settings.lua" }),
+    PlaceObj('ModItemCode', { 'name', "mcpx_cursor", 'CodeFileName', "Code/mcpx_cursor.lua" }),
+    PlaceObj('ModItemCode', { 'name', "mcpx_input", 'CodeFileName', "Code/mcpx_input.lua" }),
+    PlaceObj('ModItemCode', { 'name', "mcpx_lifecycle", 'CodeFileName', "Code/mcpx_lifecycle.lua" }),
+    PlaceObj('ModItemCode', { 'name', "mcpx_settings_ui", 'CodeFileName', "Code/mcpx_settings_ui.lua" }),
+    PlaceObj('ModItemCode', { 'name', "MouseCursorPs5Xbox", 'CodeFileName', "Code/MouseCursorPs5Xbox.lua" }),
 
 }

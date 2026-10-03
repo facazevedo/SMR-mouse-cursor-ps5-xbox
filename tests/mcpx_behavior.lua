@@ -91,8 +91,8 @@ RolloverSuspendReasons = { [false] = true, unrelated = true }
 function ResumeRollover(reason) RolloverSuspendReasons[reason or false] = nil end
 function SuspendRollover(reason) RolloverSuspendReasons[reason or false] = true end
 function XDestroyRolloverWindow() end
-CurrentModId, CurrentModDef = "MouseCursorConsoles", { version = 1 }
-CurrentModPath = "Mod/MouseCursorConsoles/"
+CurrentModId, CurrentModDef = "MouseCursorPs5Xbox", { version = 1 }
+CurrentModPath = "Mod/MouseCursorPs5Xbox/"
 function Untranslated(text) return text end
 function CreateMessageBox(_, _, text) events[#events + 1] = { event = "error", text = text } end
 local real_print = print
@@ -106,7 +106,7 @@ for i, file in ipairs(metadata.code) do
     check(items[i].CodeFileName == file, "Editor and runtime load orders differ")
     dofile(file)
 end
-local M = MCC
+local M = MCPX
 local native_mouse_position = terminal.GetMousePos
 local function event(name, button, controller) return M.input[name](M.input, button, controller or 0) end
 local function toggle()
@@ -141,7 +141,7 @@ x, y = M.MoveCursor(x, y, 0, 32767, 32767, 20, 1920, 1080)
 check(y == 482000, "Stick up must move screen cursor upward")
 x, y = M.MoveCursor(1919000, 0, 32767, 32767, 46340, 1000, 1920, 1080)
 check(x == 1919000 and y == 0, "Movement must clamp to screen and cap stalled frame time")
-local thread = cursor.threads.MCCLeftStick
+local thread = cursor.threads.MCPXLeftStick
 check(coroutine.resume(thread, cursor), "Cursor loop must start")
 clock = clock + 16
 check(coroutine.resume(thread), "Cursor loop must resume")
@@ -213,7 +213,7 @@ check(events[#events].event == "OnMouseButtonUp" and events[#events].button == "
 check(hr.XBoxLeftThumbLocked == 2 and hr.XBoxRightThumbLocked == 3, "Exit must preserve existing camera locks")
 check(terminal.pos == point(12, 34) and virtual_pos == point(45, 67), "Restore both cursor positions")
 check(terminal.GetMousePos == native_mouse_position, "Restore the exact original mouse-position function")
-check(RolloverSuspendReasons[false] and not ForceHideMouseReasons.MouseCursorConsoles, "Restore cursor reasons")
+check(RolloverSuspendReasons[false] and not ForceHideMouseReasons.MouseCursorPs5Xbox, "Restore cursor reasons")
 check(event("OnXButtonUp", "ButtonB") == "break", "Suppress release of mouse-mode button after exit")
 check(event("OnXButtonUp", "ButtonA", 1) == "break", "Suppress other controller's held release after exit")
 M.RestoreVanillaBehavior("again")

@@ -1,6 +1,6 @@
-local M = MCC
+local M = MCPX
 
-DefineClass.MCCInput = {
+DefineClass.MCPXInput = {
     __parents = { "TerminalTarget" },
     -- Ahead of desktop/gameplay; below the engine's FilterEventsTarget.
     terminal_target_priority = 1000000,
@@ -44,7 +44,7 @@ function M.PressMouse(button)
     end
 end
 
-function MCCInput:OnXButtonDown(button, controller)
+function MCPXInput:OnXButtonDown(button, controller)
     if M.settings_dialog then return end
     local held = bucket(M.held, controller)
     local duplicate = held[button]
@@ -76,7 +76,7 @@ function MCCInput:OnXButtonDown(button, controller)
     return "break"
 end
 
-function MCCInput:OnXButtonUp(button, controller)
+function MCPXInput:OnXButtonUp(button, controller)
     if M.settings_dialog then return end
     bucket(M.held, controller)[button] = nil
     local consumed = bucket(M.swallowed, controller)[button]
@@ -93,7 +93,7 @@ function MCCInput:OnXButtonUp(button, controller)
     if M.active or consumed then return "break" end
 end
 
-function MCCInput:OnXButtonRepeat(button, controller)
+function MCPXInput:OnXButtonRepeat(button, controller)
     if M.settings_dialog then return end
     if M.active and controller == M.controller and M.wheels[button] then
         if button == M.Config.WHEEL_UP_BUTTON then M.EmitMouse("OnMouseWheelForward")
@@ -102,6 +102,6 @@ function MCCInput:OnXButtonRepeat(button, controller)
     if M.active or bucket(M.swallowed, controller)[button] then return "break" end
 end
 
-function MCCInput:OnXNewPacket()
+function MCPXInput:OnXNewPacket()
     if M.active then return "break" end
 end

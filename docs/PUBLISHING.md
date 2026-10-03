@@ -1,12 +1,17 @@
 # Test-build publishing validation
 
-## Current: version 11 (local payload)
+## Current: version 14 (local payload)
 
-The native-size settings and centered square preview with full cursor travel are deployed locally.
+The renamed Mouse Cursor PS5 Xbox payload uses the `MouseCursorPs5Xbox` mod ID,
+`MouseCursorPs5Xbox.lua` entry file and `mcpx_` supporting-file prefix. Cursor
+behavior and artwork are unchanged.
 Required metadata and the existing TEST BUILD - NOT READY image are retained.
-No v11 native package or store upload was produced. Rebuild the package before publishing;
+No v14 native package or store upload was produced. Rebuild the package before publishing;
 the verified v5 package below contains the previous settings layout.
 See [settings validation](SETTINGS.md).
+
+Names and source paths in historical sections use the current naming. Their
+package hashes and verification claims apply only to the stated older versions.
 
 ## Historical: version 5
 
@@ -80,10 +85,10 @@ The package contains metadata.lua, items.lua, the six registered Code scripts an
 Images/test-not-ready.png. AGENTS.md, CLAUDE.md, tests, docs and tooling are excluded.
 Both instruction files remain excluded from GitHub's current tree too.
 
-`tests/mcc_native_package.lua` is an optional native package check, excluded from
-deployment. In an owned debug-game process, set `MCCPackageOutput` to a new,
+`tests/mcpx_native_package.lua` is an optional native package check, excluded from
+deployment. In an owned debug-game process, set `MCPXPackageOutput` to a new,
 project-owned absolute directory, then run the helper through smr-harness.
-Read `MCCPackageReport` after `complete` becomes true; `passed` must be true.
+Read `MCPXPackageReport` after `complete` becomes true; `passed` must be true.
 Compare each unpacked file's hash with its source as a separate host-side check.
 The helper refuses an existing output directory and unsaved editor changes.
 
@@ -97,7 +102,7 @@ not exercise the editor's save/reload steps, authentication or network upload.
 - `luac -p` passed for all eight payload Lua files and the new package helper.
 - Existing host suite: 79 behavioral checks passed.
 - Deployment verified hashes for all nine files in the configured local
-  `Surviving Mars Relaunched/Mods/MouseCursorConsoles` directory; no deletion.
+  `Surviving Mars Relaunched/Mods/MouseCursorPs5Xbox` directory; no deletion.
 - Read the fresh game log `MarsDebug.exe-20260927-08.44.23-6aad2de6.log` and harness
   log `daemon-20260927-124423.log`; no `[LUA ERROR]`, `Assertion failed`, or
   `blkPageCompress` matches. Shutdown messages include a missing shader hook and
@@ -116,7 +121,7 @@ not exercise the editor's save/reload steps, authentication or network upload.
 
 ## Upload and console handoff
 
-Open the deployed Mouse Cursor Consoles mod in the game's Mod Editor, sign in to
+Open the deployed Mouse Cursor PS5 Xbox mod in the game's Mod Editor, sign in to
 Paradox, and use its Paradox upload action. The game builds its own upload package.
 Keep the test-build description and TEST. NOT READY. preview until testing passes.
 After publication, confirm the listing is available to the tester on each target

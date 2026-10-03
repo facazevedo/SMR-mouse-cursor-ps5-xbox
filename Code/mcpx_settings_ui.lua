@@ -1,11 +1,11 @@
 -- A transparent child page in the existing Options shell.
 -- Reuses native title, action bar and sliders; no shared classes are patched.
-local M = MCC
+local M = MCPX
 local row_indent = 18
 M.settings_entries = {}
-DefineClass.MCCSettingsDialog = {
+DefineClass.MCPXSettingsDialog = {
     __parents = { "XDialog" },
-    Id = "idMCCSettings", IdNode = true, IsModal = true,
+    Id = "idMCPXSettings", IdNode = true, IsModal = true,
     Dock = "box", ZOrder = 2, Background = 0,
     draft = false, settings_host = false,
     preview_motion = false,
@@ -28,7 +28,7 @@ local function button(parent, text, action, properties)
     return row
 end
 
-function MCCSettingsDialog:Init()
+function MCPXSettingsDialog:Init()
     self.draft = M.NewSettingsDraft()
     self.preview_motion = { x = 150000, y = 65000 }
     local title = DialogTitleNew:new({ Margins = box(113, 0, 0, 0),
@@ -39,13 +39,13 @@ function MCCSettingsDialog:Init()
     title.idSubtitle:SetMargins(box(0, 0, 0, 3))
     title.idFrame:SetMinWidth(510)
     ActionBarNew:new({ Margins = box(109, 0, 0, 0) }, self)
-    XAction:new({ ActionId = "mccBack", ActionName = T(108518605856, "BACK"),
+    XAction:new({ ActionId = "mcpxBack", ActionName = T(108518605856, "BACK"),
         ActionToolbar = "ActionBar", ActionShortcut = "Escape", ActionGamepad = "ButtonB",
         OnAction = function() self:GoBack() end }, self)
-    XAction:new({ ActionId = "mccDefaults", ActionName = T(849084517790, "DEFAULT"),
+    XAction:new({ ActionId = "mcpxDefaults", ActionName = T(849084517790, "DEFAULT"),
         ActionToolbar = "ActionBar", ActionGamepad = "ButtonY",
         OnAction = function() self:ResetDraft() end }, self)
-    XAction:new({ ActionId = "mccApply", ActionName = T(5447, "APPLY"),
+    XAction:new({ ActionId = "mcpxApply", ActionName = T(5447, "APPLY"),
         ActionToolbar = "ActionBar", ActionGamepad = "ButtonX",
         OnAction = function() self:ApplyDraft() end }, self)
     local panel = XWindow:new({ Id = "idPanel", Dock = "box",
@@ -73,7 +73,7 @@ function MCCSettingsDialog:Init()
     self:BuildRows()
 end
 
-function MCCSettingsDialog:OnLayoutComplete()
+function MCPXSettingsDialog:OnLayoutComplete()
     -- Position in screen pixels: centered in the right half, clear of the
     -- Options title/footer and the native-size settings column.
     local width, height = UIL.GetScreenSizeXY()
@@ -93,13 +93,13 @@ function MCCSettingsDialog:OnLayoutComplete()
     end
 end
 
-function MCCSettingsDialog:BuildRows()
+function MCPXSettingsDialog:BuildRows()
     local list = self:ResolveId("idList")
     list:Clear()
     local category = self.settings_host.mode_param
     self:ResolveId("idTitle"):SetSubtitle(TLookupTag("<GameColorTagF>") .. Untranslated(" / ") ..
         TLookupTag("<GameColorCloseTagF>") .. category.caps_name ..
-        Untranslated(" / MOUSE CURSOR CONSOLES"))
+        Untranslated(" / MOUSE CURSOR PS5 XBOX"))
     local properties = self.draft:GetProperties()
     for _, prop in ipairs(properties) do
         if prop.editor == "number" then
@@ -154,13 +154,13 @@ function MCCSettingsDialog:BuildRows()
     end
 end
 
-function MCCSettingsDialog:ResetDraft()
+function MCPXSettingsDialog:ResetDraft()
     for _, prop in ipairs(self.draft:GetProperties()) do self.draft:SetProperty(prop.id, prop.default) end
     self:BuildRows()
     self:ResolveId("idStatus"):SetVisible(false)
 end
 
-function MCCSettingsDialog:ApplyDraft()
+function MCPXSettingsDialog:ApplyDraft()
     local ok, reason = M.SaveSettings(self.draft)
     if ok then self:Close("apply")
     else
@@ -170,11 +170,11 @@ function MCCSettingsDialog:ApplyDraft()
     end
 end
 
-function MCCSettingsDialog:GoBack()
+function MCPXSettingsDialog:GoBack()
     self:Close("cancel")
 end
 
-function MCCSettingsDialog:OnShortcut(shortcut, source, ...)
+function MCPXSettingsDialog:OnShortcut(shortcut, source, ...)
     if shortcut == "Escape" or shortcut == "ButtonB" then
         self:GoBack()
         return "break"
@@ -182,11 +182,11 @@ function MCCSettingsDialog:OnShortcut(shortcut, source, ...)
     return XDialog.OnShortcut(self, shortcut, source, ...)
 end
 
-function MCCSettingsDialog:Open(...)
+function MCPXSettingsDialog:Open(...)
     XDialog.Open(self, ...)
     self:ResolveId("idList"):SetFocus()
     self:ResolveId("idList"):SetSelection(1)
-    self:CreateThread("MCCPreview", function()
+    self:CreateThread("MCPXPreview", function()
         local last = RealTime()
         local last_size, last_color, last_x, last_y
         local last_controller, last_connected
@@ -231,7 +231,7 @@ function MCCSettingsDialog:Open(...)
     M.Log("SettingsUI", "opened", { layout = "all_settings_left_preview_right", background = "preserved", scrolling = false })
 end
 
-function MCCSettingsDialog:Done(result)
+function MCPXSettingsDialog:Done(result)
     if M.settings_dialog == self then M.settings_dialog = nil end
     local host = self.settings_host
     if self.parent and self.parent.window_state ~= "destroying" then
@@ -245,7 +245,7 @@ function MCCSettingsDialog:Done(result)
             end
         end
         local list = host:ResolveId("idList")
-        local entry = list and list:ResolveId("idMCCControlsEntry")
+        local entry = list and list:ResolveId("idMCPXControlsEntry")
         if entry and entry.window_state ~= "destroying" then entry:SetFocus() end
         M.Log("SettingsUI", "controls_restored", { mode = host.Mode })
     end
@@ -270,7 +270,7 @@ function M.OpenSettings(host)
     for _, control in ipairs({ content, title, actions }) do
         hidden[control] = { visible = control:GetVisible(), fold = control:GetFoldWhenHidden() }
     end
-    local dialog = MCCSettingsDialog:new({ settings_host = host, hidden_controls = hidden,
+    local dialog = MCPXSettingsDialog:new({ settings_host = host, hidden_controls = hidden,
         content_margins = content:GetMargins(), shell_halign = content.parent:GetHAlign() }, content.parent)
     M.settings_dialog = dialog
     for control in pairs(hidden) do
@@ -295,12 +295,12 @@ function OnMsg.XWindowRecreated(list)
     if not host or not GetParentOfKind(host, "OptionsDlg") then return end
     local category = GetDialogModeParam(list)
     if host.Mode ~= "properties" or type(category) ~= "table" or category.id ~= "Controls" then return end
-    if list:ResolveId("idMCCControlsEntry") then return end
+    if list:ResolveId("idMCPXControlsEntry") then return end
     for entry in pairs(M.settings_entries) do
         if entry.window_state == "destroying" then M.settings_entries[entry] = nil end
     end
-    local entry = button(list, "Mouse Cursor Consoles", function() M.OpenSettings(host) end,
-        { Id = "idMCCControlsEntry", ZOrder = -1 })
+    local entry = button(list, "Mouse Cursor PS5 Xbox", function() M.OpenSettings(host) end,
+        { Id = "idMCPXControlsEntry", ZOrder = -1 })
     M.settings_entries[entry] = host
     list:SortChildren()
     entry:Open()

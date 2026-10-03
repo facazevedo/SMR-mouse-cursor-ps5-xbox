@@ -1,8 +1,8 @@
 -- Follow the Controls route and verify the general Mod Options route is absent.
-rawset(_G, "MCCNativeEntryReport", { status = "running", checks = {} })
+rawset(_G, "MCPXNativeEntryReport", { status = "running", checks = {} })
 CreateRealTimeThread(function()
-    local report = MCCNativeEntryReport
-    local m = Mods.MouseCursorConsoles.env.MCC
+    local report = MCPXNativeEntryReport
+    local m = Mods.MouseCursorPs5Xbox.env.MCPX
     local original_style = GetUIStyle()
     local options
     local function check(value, name)
@@ -21,12 +21,12 @@ CreateRealTimeThread(function()
             if row.context.id == "Controls" then controls = row end
         end
         check(controls ~= nil, "Options root exposes Controls")
-        check(not Mods.MouseCursorConsoles:HasOptions(), "mod does not advertise a general Mod Options category")
+        check(not Mods.MouseCursorPs5Xbox:HasOptions(), "mod does not advertise a general Mod Options category")
         controls:OnPress()
         Sleep(150)
         list = host:ResolveId("idList")
-        local controls_entry = list:ResolveId("idMCCControlsEntry")
-        check(controls_entry and list[1] == controls_entry, "Mouse Cursor Consoles is the first Controls row")
+        local controls_entry = list:ResolveId("idMCPXControlsEntry")
+        check(controls_entry and list[1] == controls_entry, "Mouse Cursor PS5 Xbox is the first Controls row")
         check(#list > 1, "vanilla Controls rows remain available")
         local native_label = list[2]:ResolveId("idName")
         local function entry_aligned()
@@ -50,7 +50,7 @@ CreateRealTimeThread(function()
         local page = m.settings_dialog
         check(page.parent == content.parent and page.Background == 0, "settings reuse native shell with transparent background")
         check(not content:GetVisible() and not title:GetVisible() and not actions:GetVisible(), "native Controls widgets are hidden during settings")
-        check(_InternalTranslate(page:ResolveId("idTitle").idSubtitle.Text):find("CONTROLS / MOUSE CURSOR CONSOLES", 1, true), "native breadcrumb includes Controls and Mouse Cursor Consoles")
+        check(_InternalTranslate(page:ResolveId("idTitle").idSubtitle.Text):find("CONTROLS / MOUSE CURSOR PS5 XBOX", 1, true), "native breadcrumb includes Controls and Mouse Cursor PS5 Xbox")
         check(page:ResolveId("idList")[1].box:miny() == first_row_y, "settings rows share native Controls vertical alignment")
         check(#page:GetActions() == 3 and page:ResolveId("idActionBar"):IsVisible(), "native footer offers Back Default Apply")
         check(m.OpenSettings(host) == page, "repeated open keeps one settings page")
@@ -67,15 +67,15 @@ CreateRealTimeThread(function()
         list:RequestRespawn()
         Sleep(150)
         local count = 0
-        for _, row in ipairs(list) do if row.Id == "idMCCControlsEntry" then count = count + 1 end end
+        for _, row in ipairs(list) do if row.Id == "idMCPXControlsEntry" then count = count + 1 end end
         check(count == 1, "Controls rebuild retains exactly one mod row")
         m.Shutdown("entry_test")
-        check(not list:ResolveId("idMCCControlsEntry"), "shutdown removes mod-owned Controls row")
+        check(not list:ResolveId("idMCPXControlsEntry"), "shutdown removes mod-owned Controls row")
         check(next(m.settings_entries) == nil, "shutdown clears entry ownership")
         m.Install()
         list:RequestRespawn()
         Sleep(150)
-        controls_entry = list:ResolveId("idMCCControlsEntry")
+        controls_entry = list:ResolveId("idMCPXControlsEntry")
         check(controls_entry ~= nil, "reinstallation allows Controls entry again")
         controls_entry:OnPress()
         Sleep(150)
@@ -91,10 +91,10 @@ CreateRealTimeThread(function()
         list = host:ResolveId("idList")
         local duplicate
         for _, row in ipairs(list) do
-            if row.context == Mods.MouseCursorConsoles then duplicate = row end
+            if row.context == Mods.MouseCursorPs5Xbox then duplicate = row end
         end
-        check(not duplicate, "general Mod Options list has no Mouse Cursor Consoles entry")
-        check(next(Mods.MouseCursorConsoles.options:GetProperties()) == nil,
+        check(not duplicate, "general Mod Options list has no Mouse Cursor PS5 Xbox entry")
+        check(next(Mods.MouseCursorPs5Xbox.options:GetProperties()) == nil,
             "private Controls properties do not leak into native Mod Options")
 
     end)

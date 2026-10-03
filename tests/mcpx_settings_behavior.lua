@@ -1,6 +1,6 @@
 -- Preference and motion contracts; the native UI has separate integration checks.
-dofile("tests/mcc_behavior.lua")
-local M, checks = MCC, 0
+dofile("tests/mcpx_behavior.lua")
+local M, checks = MCPX, 0
 local function check(value, message) checks = checks + 1; assert(value, message) end
 local function copy(values) local t = {}; for k,v in pairs(values) do t[k] = v end; return t end
 local function options(values)

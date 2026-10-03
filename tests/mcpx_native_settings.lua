@@ -1,10 +1,10 @@
 -- Native UI/persistence integration in an owned Windows debug process.
 -- Simulates controller state only; restores preferences and control style.
-rawset(_G, "MCCNativeSettingsReport", { status = "running", checks = {} })
+rawset(_G, "MCPXNativeSettingsReport", { status = "running", checks = {} })
 CreateRealTimeThread(function()
-    local report = MCCNativeSettingsReport
-    local mod, original_style = Mods.MouseCursorConsoles, GetUIStyle()
-    local env, m = mod.env, mod.env.MCC
+    local report = MCPXNativeSettingsReport
+    local mod, original_style = Mods.MouseCursorPs5Xbox, GetUIStyle()
+    local env, m = mod.env, mod.env.MCPX
     local original_input = rawget(env, "XInput")
     local original_controller = rawget(env, "ActiveController")
     local saved = AccountStorage.ModPersistentData and AccountStorage.ModPersistentData[mod.id]

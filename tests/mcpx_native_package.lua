@@ -1,11 +1,11 @@
 -- Run via smr-harness in an owned debug-game process, after setting
--- MCCPackageOutput to a new, empty, project-owned output directory.
+-- MCPXPackageOutput to a new, empty, project-owned output directory.
 -- Uses the uploader's native packer without its shared-temp deletion or upload.
-local output = rawget(_G, "MCCPackageOutput")
-assert(type(output) == "string" and output ~= "", "MCCPackageOutput is required")
+local output = rawget(_G, "MCPXPackageOutput")
+assert(type(output) == "string" and output ~= "", "MCPXPackageOutput is required")
 CreateRealTimeThread(function()
     local report = { complete = false, passed = false }
-    rawset(_G, "MCCPackageReport", report)
+    rawset(_G, "MCPXPackageReport", report)
     local function check(condition, message)
         if not condition then
             report.error = message
@@ -13,7 +13,7 @@ CreateRealTimeThread(function()
             error(message)
         end
     end
-    local mod = Mods.MouseCursorConsoles
+    local mod = Mods.MouseCursorPs5Xbox
     check(mod ~= nil, "Mod definition missing")
     check(not mod:IsDirty(), "Refusing to package unsaved editor changes")
     for _, field in ipairs({ "title", "short_description", "description", "image" }) do

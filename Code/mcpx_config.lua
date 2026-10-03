@@ -1,9 +1,9 @@
 -- This table belongs to the mod environment, not to persistent save data.
-local previous = rawget(_G, "MCC")
+local previous = rawget(_G, "MCPX")
 if previous and previous.Shutdown then previous.Shutdown("code_reload") end
-rawset(_G, "MCC", {
+rawset(_G, "MCPX", {
     CursorArtwork = {
-        Image = CurrentModPath .. "Images/mcc_cursor.png",
+        Image = CurrentModPath .. "Images/mcpx_cursor.png",
         ResolutionScale = 10, -- vector export: 240x260 pixels at 24x26 logical size
     },
     Config = {

@@ -1,6 +1,6 @@
-# Version 13: cursor settings
+# Version 14: cursor settings
 
-Entry point: **Options > Controls > Mouse Cursor Consoles**, while the mod is
+Entry point: **Options > Controls > Mouse Cursor PS5 Xbox**, while the mod is
 enabled. Continuous values use the game's `PropNumber` control, including the
 same gold bar/thumb artwork as the normal Controls screen.
 
@@ -16,16 +16,29 @@ only when needed. Toggle
 choices are L3/R3 to keep ordinary menu navigation available. Analog triggers are
 available for the polled boost modifier only. The README documents ranges/defaults.
 
+## Version 14: name and prefix (2026-10-03)
+
+The Controls entry and breadcrumb now read **Mouse Cursor PS5 Xbox**. The new
+mod ID is `MouseCursorPs5Xbox`; the entry file is `MouseCursorPs5Xbox.lua` and
+supporting code/assets use `mcpx_` and `MCPX`. Existing preference schemas,
+controls, cursor artwork and behavior are unchanged. Enabled-mod selections and
+saved preferences do not transfer to the new ID automatically. Host checks and
+deployment evidence are recorded in [validation](VALIDATION.md); this version
+has not been tested in the running game or on physical consoles.
+
+Names and source paths in older sections use the current naming; historical
+verification claims still apply only to their stated versions.
+
 ## Version 13: sharp cursor artwork (2026-09-29)
 
-- Added mod-owned `Assets/mcc_cursor.svg` and its 240x260 transparent PNG export
-  `Images/mcc_cursor.png`. This is 10x the original arrow's visible resolution,
+- Added mod-owned `Assets/mcpx_cursor.svg` and its 240x260 transparent PNG export
+  `Images/mcpx_cursor.png`. This is 10x the original arrow's visible resolution,
   with tight alpha bounds `(0, 0, 240, 260)` and the same tip/origin. The native
   `XImage` renderer downsamples it at normal sizes and at 300% on a 4K display;
   this is vector-source artwork exported to a bitmap, not runtime SVG rendering.
-- `mcc_config.lua` owns the image path and resolution factor. `mcc_settings.lua`
+- `mcpx_config.lua` owns the image path and resolution factor. `mcpx_settings.lua`
   compensates image scale so cursor size settings retain their meaning and logs
-  artwork/size/tint only with `DEBUG_LOGS == true`. `mcc_cursor.lua` and the
+  artwork/size/tint only with `DEBUG_LOGS == true`. `mcpx_cursor.lua` and the
   `MouseCursor` lifecycle message map the default arrow to this image. Other native
   action/rollover images retain their original scale. The preview uses the same
   image without the version-12 crop rectangle; click coordinates are unchanged.
@@ -45,7 +58,7 @@ available for the polled boost modifier only. The README documents ranges/defaul
   smooth and the existing blue/silver appearance is preserved.
 - `luac -p` passed for all payload Lua and changed Lua tests. Load order is unchanged.
   Deployment hash-verified **12 payload files**, including the new PNG, in the
-  existing local MouseCursorConsoles mod directory; no destination files deleted.
+  existing local MouseCursorPs5Xbox mod directory; no destination files deleted.
 - Read-only game references included `CommonLua/X/XImage.lua`, mod content paths,
   native terminal input and cursor lifecycle code. No original assets, game files,
   third-party, generated game code, or harness source was modified.
@@ -82,7 +95,7 @@ available for the polled boost modifier only. The README documents ranges/defaul
   the square's bottom-right edge. Reports/screenshots stay ignored in `tests/results`.
 - `luac -p` passed for every payload Lua file and all changed test Lua files.
   Runtime load order is unchanged. Deployment copied/hash-verified all 11 payload
-  files to `%APPDATA%/Surviving Mars Relaunched/Mods/MouseCursorConsoles`.
+  files to `%APPDATA%/Surviving Mars Relaunched/Mods/MouseCursorPs5Xbox`.
 - Read-only references: `Lua/XDef/PropNumber.generated.lua`, native Options list
   layout, `CommonLua/X/XImage.lua`, `XWindow.lua`, `XRollover.lua`, and mod storage
   implementation. No game, third-party, generated, asset, or harness source changed.
@@ -100,11 +113,11 @@ available for the polled boost modifier only. The README documents ranges/defaul
 
 ## Ownership and behavior
 
-- `mcc_settings.lua` owns preference validation, read/apply/save, button labels and
+- `mcpx_settings.lua` owns preference validation, read/apply/save, button labels and
   cursor styling. Preferences use `CurrentModStorageTable.settings`, schema 2 (schema 1 remains readable),
   written with the supported `WriteModPersistentStorageTable` API. No direct
   account-storage access is attempted by the deployed mod.
-- `mcc_settings_ui.lua` owns a transparent child page and draft inside the
+- `mcpx_settings_ui.lua` owns a transparent child page and draft inside the
   native Options shell. It reuses the shell safe margins, title and action-bar
   classes, retaining the existing animated background. The original Controls
   content, title and footer are hidden and folded while this page is open; their
@@ -137,7 +150,7 @@ available for the polled boost modifier only. The README documents ranges/defaul
 Version in `metadata.lua` is **11**. Both manifests load eight code files in the same
 order, with settings data before the cursor and settings UI before entry hooks.
 `items.lua` registers code only. Private property definitions belong to
-`mcc_settings.lua`; metadata advertises no generic options. Deployment has 11 files.
+`mcpx_settings.lua`; metadata advertises no generic options. Deployment has 11 files.
 
 `DEBUG_LOGS=false` and `DEBUG_INPUT=false` remain explicit booleans. Settings logs
 cover validation, loading, save errors/requests, applied values, and dialog lifecycle;
@@ -209,7 +222,7 @@ deployed and hash-verified. The final debug game log
 `MarsDebug.exe-20260929-21.32.01-6aad2de6.log` had no Lua errors or assertions;
 it and the recent retail startup log were reviewed and retained.
 
-Manual check: restart, open Options > Controls > Mouse Cursor Consoles and verify
+Manual check: restart, open Options > Controls > Mouse Cursor PS5 Xbox and verify
 all 15 rows are visible, the preview is square, and the left stick stays inside
 it while the D-pad edits any row. Check Apply, Default and Back. Physical console
 controllers, console rendering and other display sizes remain unverified.
@@ -239,7 +252,7 @@ Game, protected, generated and third-party sources were not edited. Game and
 harness logs were reviewed and retained.
 Physical PS5/Xbox controller and console rendering remain to be checked.
 
-Manual check: restart the game, open Options > Controls > Mouse Cursor Consoles,
+Manual check: restart the game, open Options > Controls > Mouse Cursor PS5 Xbox,
 move the left stick without selecting a row, then hold the configured boost
 button. Confirm the cursor stays inside the test area, the D-pad edits sliders,
 and Apply and Back behave normally. Enter Advanced and return to the basic page
@@ -247,7 +260,7 @@ to confirm preview movement resumes.
 
 ## Version 8 verification (2026-09-29)
 
-The Mouse Cursor Consoles entry in native Controls now uses the same mod-owned
+The Mouse Cursor PS5 Xbox entry in native Controls now uses the same mod-owned
 menu-row builder as the aligned Test cursor and Advanced settings rows. That
 builder removes unused inherited label/icon spacing and keeps the label margin
 stable during hover. The entry retains its ID, first-row order, controller
@@ -276,7 +289,7 @@ third-party and image files were not edited. Reviewed game and harness logs were
 retained. No v8 native package or mod-store upload was made.
 
 Manual check: restart the game, open Options > Controls, and compare Mouse Cursor
-Consoles with Invert Mouse Wheel before selecting anything; then hover/select it
+PS5 Xbox with Invert Mouse Wheel before selecting anything; then hover/select it
 and confirm the left edge remains aligned. Console rendering remains unverified.
 
 ## Historical version 7 verification (2026-09-29)
@@ -315,7 +328,7 @@ rows. Physical-console rendering and in-colony behavior remain untested.
 ## Historical version 6 verification (2026-09-29)
 
 Replaced the centered opaque screen with a child page in the existing Options
-shell. The title reads OPTIONS / CONTROLS / MOUSE CURSOR CONSOLES; Advanced adds
+shell. The title reads OPTIONS / CONTROLS / MOUSE CURSOR PS5 XBOX; Advanced adds
 one more breadcrumb. Sliders retain native Controls alignment and spacing.
 The footer now owns Back/Default/Apply and their native controller shortcuts.
 This changes presentation/navigation only: cursor motion, bindings, preference
@@ -352,10 +365,10 @@ validation, storage schema, and gameplay lifecycle are unchanged.
   `daemon-20260930-000520.log` contain no Lua errors or assertion failures through
   the final checks and captures. Logs are retained; no deletion workflow is configured.
 - All 11 payload files were deployed and SHA-256 verified in the configured local
-  MouseCursorConsoles folder. No store upload or v6 package build was performed.
+  MouseCursorPs5Xbox folder. No store upload or v6 package build was performed.
 
 Manual checks: restart the game and open Options > Controls > Mouse Cursor
-Consoles. Check the animated background and complete breadcrumb, adjust a slider,
+PS5 Xbox. Check the animated background and complete breadcrumb, adjust a slider,
 use Default and Apply, reopen to check persistence, then use Back twice through
 Advanced and verify focus returns to Controls. Repeat in a colony and on PS5/Xbox.
 Physical controllers, console rendering and in-colony/save-load behavior were
@@ -378,14 +391,14 @@ and cursor motion, mappings, option ranges and artwork are unchanged.
 - Logs reviewed: retail Mars.exe-20260927-20.17.17-6aad2d75.log and debug daemon
   20260928-002207.log (no Lua errors/assertion failures during the checks).
   Logs retained; game/harness/third-party sources untouched.
-- Production files: metadata.lua, items.lua, mcc_settings.lua and mcc_settings_ui.lua.
+- Production files: metadata.lua, items.lua, mcpx_settings.lua and mcpx_settings_ui.lua.
   Existing DEBUG_LOGS and DEBUG_INPUT boolean gates remain false; settings open,
   close, validation, apply/save and Controls-entry diagnostics remain available.
 - All 11 payload files deployed and hash-verified. User game process was left alone.
   AGENTS.md and CLAUDE.md remain excluded. Physical controller/console operation
   and in-colony save/load remain unverified by these Windows simulated-input tests.
 
-Manual check: restart, verify only Options > Controls > Mouse Cursor Consoles
+Manual check: restart, verify only Options > Controls > Mouse Cursor PS5 Xbox
 opens these settings, change a slider, Apply, and reopen to confirm the value.
 
 Mouse Edge Scrolling is a vanilla PC option. ProjectOptions.lua registers it
@@ -436,7 +449,7 @@ and adds the requested Controls route. No cursor motion or binding behavior chan
   gameplay remain manual checks; Windows simulated-input tests do not certify them.
 
 Manual check: restart with v4 enabled, open Options > Controls, select Mouse Cursor
-Consoles, adjust a speed with D-pad Left/Right, choose Test cursor, then Apply.
+PS5 Xbox, adjust a speed with D-pad Left/Right, choose Test cursor, then Apply.
 Reopen to verify persistence; Circle/B should return to Controls. Repeat in a colony.
 
 ## Historical version 3 verification (2026-09-27)
