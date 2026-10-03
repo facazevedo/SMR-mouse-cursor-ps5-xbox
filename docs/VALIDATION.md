@@ -6,7 +6,7 @@ Renamed the mod to **Mouse Cursor PS5 Xbox**, its mod ID to
 `MouseCursorPs5Xbox`, the entry file to `Code/MouseCursorPs5Xbox.lua`, supporting
 files/assets to `mcpx_`, and runtime classes, UI IDs and test-report globals to
 `MCPX`. Metadata and editor manifests retain the same eight-module load order.
-The GitHub repository is `facazevedo/mouse-cursor-ps5-xbox`.
+The GitHub repository is `facazevedo/SRM-mouse-cursor-ps5-xbox`.
 
 - `luac -p` passed for all **17 payload and test Lua files**. The existing host
   suites passed **84 behavior + 56 settings/motion checks**, covering manifest
