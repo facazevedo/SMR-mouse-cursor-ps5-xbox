@@ -102,7 +102,7 @@ not exercise the editor's save/reload steps, authentication or network upload.
 - `luac -p` passed for all eight payload Lua files and the new package helper.
 - Existing host suite: 79 behavioral checks passed.
 - Deployment verified hashes for all nine files in the configured local
-  `Surviving Mars Relaunched/Mods/MouseCursorPs5Xbox` directory; no deletion.
+  `Surviving Mars Relaunched/Mods/mouse-cursor-ps5-xbox` directory; no deletion.
 - Read the fresh game log `MarsDebug.exe-20260927-08.44.23-6aad2de6.log` and harness
   log `daemon-20260927-124423.log`; no `[LUA ERROR]`, `Assertion failed`, or
   `blkPageCompress` matches. Shutdown messages include a missing shader hook and

@@ -1,5 +1,34 @@
 # Validation record
 
+## Repository and deployment folders (2026-10-03)
+
+The repository folder and local deployment folder are `mouse-cursor-ps5-xbox`.
+`tools/deploy.ps1` now configures the folder separately from the metadata ID,
+`MouseCursorPs5Xbox`. README and deployment paths in the documentation use the
+new folder name. Canonical version remains **14**: runtime code, manifests,
+assets, controls, preferences and load order are unchanged. Existing boolean
+`DEBUG_LOGS=false` and `DEBUG_INPUT=false` are unchanged; no runtime logs were added.
+
+- `luac -p` passed for all **17 payload/test Lua files**, PowerShell parsing passed,
+  and the host suites passed **84 behavior + 56 settings/motion checks**.
+- Two consecutive deployments verified all **12 payload files** by SHA-256 in
+  `%APPDATA%/Surviving Mars Relaunched/Mods/mouse-cursor-ps5-xbox`, including
+  ownership validation on redeployment. No files were deleted; neither the old
+  repository-named folder nor the ID-named folder exists in local Mods.
+- Inspected the installed `CommonLua/Modding/Mod.lua` read-only: `ModsReloadDefs`
+  reads metadata from each folder and derives mounted content paths from `def.id`.
+  The folder name therefore does not require a new game identity.
+- Reviewed `Mars.exe-20261003-19.33.49-6aad2d75.log` and
+  `MarsDebug.exe-20261003-19.34.30-6aad2de6-GED-GedModManager-47740.log` before
+  deployment. The retail log lists the v14 definition; neither log certifies
+  cursor gameplay after this folder change. Logs were retained.
+- Protected/game sources, original assets, instruction files and generated
+  historical evidence in `tests/results/` were not edited. Old names in that
+  evidence remain historical. No native-engine or console test was run.
+
+Manual check: restart the game, enable Mouse Cursor PS5 Xbox, open its Controls
+settings, then toggle mouse mode on and off and confirm controls are restored.
+
 ## Version 14: name and prefix (2026-10-03)
 
 Renamed the mod to **Mouse Cursor PS5 Xbox**, its mod ID to
@@ -19,7 +48,7 @@ The GitHub repository is `facazevedo/SMR-mouse-cursor-ps5-xbox`.
 - The existing local installation matched all 12 source-file hashes before
   migration. Its folder and affected files were renamed without deletion; all
   **12 updated payload files** were deployed and SHA-256 verified under
-  `%APPDATA%/Surviving Mars Relaunched/Mods/MouseCursorPs5Xbox`.
+  `%APPDATA%/Surviving Mars Relaunched/Mods/mouse-cursor-ps5-xbox`.
 - `DEBUG_LOGS=false` and `DEBUG_INPUT=false` remain explicit booleans. No new
   runtime log operations were added; the log prefix now uses the new mod name.
 - Read-only `CommonLua/Modding/Mod.lua` in the installed ModTools sources confirms
@@ -164,7 +193,7 @@ Git repository was initialized for the required initial version commit.
 Display name: Mouse Cursor PS5 Xbox. Main file: `Code/MouseCursorPs5Xbox.lua`.
 Prefix: `mcpx_`. Canonical version: `metadata.lua` (`version = 1`). Payload source:
 the eight explicitly selected files at project root and `Code/`. Local target:
-`%APPDATA%/Surviving Mars Relaunched/Mods/MouseCursorPs5Xbox`. Logs:
+`%APPDATA%/Surviving Mars Relaunched/Mods/mouse-cursor-ps5-xbox`. Logs:
 `%APPDATA%/Surviving Mars Relaunched/logs`. No vendored or third-party code is
 part of the payload. Game installation and neighboring projects are reference
 material, not editable mod source.

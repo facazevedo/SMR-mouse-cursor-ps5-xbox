@@ -58,7 +58,7 @@ verification claims still apply only to their stated versions.
   smooth and the existing blue/silver appearance is preserved.
 - `luac -p` passed for all payload Lua and changed Lua tests. Load order is unchanged.
   Deployment hash-verified **12 payload files**, including the new PNG, in the
-  existing local MouseCursorPs5Xbox mod directory; no destination files deleted.
+  existing local mouse-cursor-ps5-xbox mod directory; no destination files deleted.
 - Read-only game references included `CommonLua/X/XImage.lua`, mod content paths,
   native terminal input and cursor lifecycle code. No original assets, game files,
   third-party, generated game code, or harness source was modified.
@@ -95,7 +95,7 @@ verification claims still apply only to their stated versions.
   the square's bottom-right edge. Reports/screenshots stay ignored in `tests/results`.
 - `luac -p` passed for every payload Lua file and all changed test Lua files.
   Runtime load order is unchanged. Deployment copied/hash-verified all 11 payload
-  files to `%APPDATA%/Surviving Mars Relaunched/Mods/MouseCursorPs5Xbox`.
+  files to `%APPDATA%/Surviving Mars Relaunched/Mods/mouse-cursor-ps5-xbox`.
 - Read-only references: `Lua/XDef/PropNumber.generated.lua`, native Options list
   layout, `CommonLua/X/XImage.lua`, `XWindow.lua`, `XRollover.lua`, and mod storage
   implementation. No game, third-party, generated, asset, or harness source changed.
@@ -365,7 +365,7 @@ validation, storage schema, and gameplay lifecycle are unchanged.
   `daemon-20260930-000520.log` contain no Lua errors or assertion failures through
   the final checks and captures. Logs are retained; no deletion workflow is configured.
 - All 11 payload files were deployed and SHA-256 verified in the configured local
-  MouseCursorPs5Xbox folder. No store upload or v6 package build was performed.
+  mouse-cursor-ps5-xbox folder. No store upload or v6 package build was performed.
 
 Manual checks: restart the game and open Options > Controls > Mouse Cursor
 PS5 Xbox. Check the animated background and complete breadcrumb, adjust a slider,

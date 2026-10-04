@@ -3,6 +3,10 @@
 A Surviving Mars: Relaunched Lua mod that toggles a left-stick mouse cursor on consoles.
 
 Repository: [SMR-mouse-cursor-ps5-xbox](https://github.com/facazevedo/SMR-mouse-cursor-ps5-xbox).
+The repository folder is `mouse-cursor-ps5-xbox`. Run `./tools/deploy.ps1` from
+PowerShell to syntax-check and copy the payload to
+`%APPDATA%/Surviving Mars Relaunched/Mods/mouse-cursor-ps5-xbox`.
+The local folder name is separate from the game's mod ID, `MouseCursorPs5Xbox`.
 The entry file is `Code/MouseCursorPs5Xbox.lua`; supporting code and assets use
 the `mcpx_` prefix and runtime classes use `MCPX`.
 

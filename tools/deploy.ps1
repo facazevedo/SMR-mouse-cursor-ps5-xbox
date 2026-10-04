@@ -1,8 +1,9 @@
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $modId = 'MouseCursorPs5Xbox'
+$modFolder = 'mouse-cursor-ps5-xbox' # Local folder name is separate from the metadata ID.
 $modsRoot = Join-Path $env:APPDATA 'Surviving Mars Relaunched\Mods'
-$destination = [IO.Path]::GetFullPath((Join-Path $modsRoot $modId))
+$destination = [IO.Path]::GetFullPath((Join-Path $modsRoot $modFolder))
 if ((Split-Path -Parent $destination) -ne [IO.Path]::GetFullPath($modsRoot)) {
     throw "Deployment escaped Mods directory: $destination"
 }
